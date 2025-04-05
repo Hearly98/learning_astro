@@ -1,19 +1,24 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import type {PokemonListResponse} from "../interfaces/pokemon-list-response"
-const title = 'Pokemon Static | Home';
-const resp = await fetch('https://pokeapi.co/api/v2/pokemon');
-const data = await resp.json() as PokemonListResponse;
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css"
+import type { PokemonListResponse } from "../interfaces/pokemon-list-response";
+import PokemonCard from "../components/pokemons/PokemonCard.astro";
+const title = "Pokemon Static | Home";
+const resp = await fetch("https://pokeapi.co/api/v2/pokemon");
+const data = await resp.json() as PokemonListResponse
+
 ---
 
 <Layout title={title}>
-	<h1 class="text-3xl">Listado de Pokemon</h1>
-	<hr>
-	<ul>
-		{
-		(data.results.map((response)=>(
-			<li>{response.name}</li>
-			)))
-		}
-	</ul>
+  <h1 class="text-3xl">Listado de Pokemon</h1>
+  <hr />
+  <section
+    aria-label="Listado de Pokemons"
+    class="grid grid-cols-1 sm:grid-cols-5 md:grid-cols-3 gap-4 mt-5 p-3"
+  >
+    {data.results.map((response) => 
+	<PokemonCard name={response.name} url={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + response.url[response.url.length - 2] + ".png"}>
+
+</PokemonCard>)}
+  </section>
 </Layout>

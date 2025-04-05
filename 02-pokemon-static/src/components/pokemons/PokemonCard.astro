@@ -1,0 +1,13 @@
+---
+interface Props {
+  name: string;
+  url: string;
+}
+const { name, url } = Astro.props;
+---
+
+<div class="p-3 border-2 rounded-2xl">
+  <img src={url} alt={name} />
+  <hr>
+  <span class="text-2xl font-light">{name}</span>
+</div>
